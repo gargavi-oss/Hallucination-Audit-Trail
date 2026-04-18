@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Hallucination Audit Trail",
+  "version": "1.0.0",
+  "description": "AI-powered fact-checking extension that identifies verified, unverified, and hallucinated claims in web content.",
+  "permissions": ["activeTab", "scripting"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Hallucination Audit Trail"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["mockData.js", "content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

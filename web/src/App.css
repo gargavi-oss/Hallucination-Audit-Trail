@@ -1,0 +1,106 @@
+/* ═══════════════════════════════════════════════════════
+   APP STYLES
+   ═══════════════════════════════════════════════════════ */
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Main Layout ── */
+.main-layout {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 0;
+  flex: 1;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 32px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.main-layout__left {
+  padding-right: 24px;
+  border-right: 1px solid var(--border-color);
+  animation: slideInLeft 0.5s ease-out;
+}
+
+.main-layout__right {
+  padding-left: 24px;
+  animation: slideInRight 0.5s ease-out;
+}
+
+/* ── Scan Overlay ── */
+.scan-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 14, 23, 0.92);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.scan-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.scan-icon {
+  color: var(--accent-light);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.scan-content h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.scan-content p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.scan-bar-container {
+  width: 280px;
+  height: 3px;
+  background: var(--bg-card);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.scan-bar {
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--accent-light), transparent);
+  border-radius: 2px;
+  animation: shimmer 1.2s ease-in-out infinite;
+  background-size: 200% 100%;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+  .main-layout__left {
+    padding-right: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 24px;
+  }
+  .main-layout__right {
+    padding-left: 0;
+    padding-top: 24px;
+  }
+}
