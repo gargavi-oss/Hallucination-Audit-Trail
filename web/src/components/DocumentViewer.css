@@ -1,85 +1,87 @@
 /* ═══════════════════════════════════════════════════════
-   DOCUMENT VIEWER
+   DOCUMENT VIEWER — The Forensic Canvas (Lumina Trace)
    ═══════════════════════════════════════════════════════ */
 
 .doc-viewer {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  background: var(--surface-container);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--ghost-border);
+  overflow: hidden;
 }
 
+/* Header — Surface High for tonal depth */
 .doc-viewer__header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border-color);
+  gap: 12px;
+  padding: 16px 24px;
+  background: var(--surface-high);
+  border-bottom: 1px solid var(--ghost-border);
 }
 
 .doc-viewer__icon {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-sm);
-  background: var(--accent-bg);
-  color: var(--accent-light);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: var(--primary);
   flex-shrink: 0;
 }
 
 .doc-viewer__title {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--on-surface);
+  letter-spacing: -0.01em;
   flex: 1;
 }
 
 .doc-viewer__badge {
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--accent-light);
-  background: var(--accent-bg);
-  padding: 4px 10px;
-  border-radius: 100px;
-  border: 1px solid rgba(99, 102, 241, 0.2);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  padding: 4px 12px;
+  background: var(--surface-highest);
+  border: 1px solid var(--ghost-border);
+  border-radius: var(--radius-full);
+  color: var(--primary);
   white-space: nowrap;
 }
 
+/* Content */
 .doc-viewer__content {
-  max-height: calc(100vh - 320px);
-  overflow-y: auto;
-  padding-right: 8px;
+  padding: 28px 28px 24px;
 }
 
 .doc-viewer__text {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   line-height: 1.85;
-  color: var(--text-secondary);
+  color: var(--on-surface-variant);
   white-space: pre-wrap;
 }
 
+/* Footer Legend */
 .doc-viewer__footer {
   display: flex;
   gap: 20px;
-  padding-top: 14px;
-  border-top: 1px solid var(--border-color);
+  padding: 14px 24px;
+  background: var(--surface-high);
+  border-top: 1px solid var(--ghost-border);
 }
 
 .doc-viewer__legend-item {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.75rem;
-  color: var(--text-muted);
+  font-size: 0.72rem;
   font-weight: 500;
+  color: var(--on-surface-variant);
+  letter-spacing: 0.02em;
 }
 
 .legend-dot {
   width: 8px;
   height: 8px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
 }
+
 .legend-dot--verified { background: var(--verified); }
 .legend-dot--unverified { background: var(--unverified); }
 .legend-dot--hallucinated { background: var(--hallucinated); }

@@ -1,12 +1,9 @@
+import { STATUS_TOKENS } from '../designTokens.js';
 import './ClaimHighlight.css';
 
-const statusIcons = {
-  verified: '✓',
-  unverified: '?',
-  hallucinated: '✕'
-};
-
 export default function ClaimHighlight({ claim, isSelected, onClick }) {
+  const config = STATUS_TOKENS[claim.status];
+
   return (
     <span
       className={`claim-highlight claim-highlight--${claim.status} ${isSelected ? 'claim-highlight--selected' : ''}`}
@@ -14,17 +11,17 @@ export default function ClaimHighlight({ claim, isSelected, onClick }) {
       role="button"
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && onClick()}
-      aria-label={`${claim.status} claim: ${claim.text}`}
+      aria-label={`${config.label} claim: ${claim.text}`}
     >
       {claim.text}
       <span className="claim-highlight__indicator">
-        {statusIcons[claim.status]}
+        {config.icon}
       </span>
       
-      {/* Tooltip */}
+      {/* Glassmorphism Tooltip */}
       <span className="claim-tooltip">
         <span className={`claim-tooltip__status claim-tooltip__status--${claim.status}`}>
-          {claim.status.charAt(0).toUpperCase() + claim.status.slice(1)}
+          {config.label}
         </span>
         <span className="claim-tooltip__confidence">
           Confidence: {claim.confidence}%

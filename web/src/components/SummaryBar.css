@@ -1,154 +1,196 @@
 /* ═══════════════════════════════════════════════════════
-   SUMMARY BAR
+   SUMMARY BAR — Trust Metrics (Lumina Trace)
    ═══════════════════════════════════════════════════════ */
 
 .summary-bar {
-  border-bottom: 1px solid var(--border-color);
-  background: rgba(17, 24, 39, 0.5);
-  animation: fadeIn 0.4s ease-out;
+  background: var(--surface-low);
+  padding: 20px 40px;
+  animation: fadeIn var(--duration-normal) var(--ease-weighted);
 }
 
 .summary-bar__inner {
-  max-width: 1440px;
+  max-width: 1480px;
   margin: 0 auto;
-  padding: 20px 32px;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr 1fr 1fr;
+  gap: 20px;
   align-items: center;
-  gap: 28px;
 }
 
-/* ── Trust Score Card ── */
+/* ── Trust Score Ring ── */
 .summary-card--trust {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 6px;
-  min-width: 100px;
+  gap: 12px;
 }
 
 .trust-score {
   position: relative;
-  width: 80px;
-  height: 80px;
-}
-
-.trust-score__ring {
-  width: 100%;
-  height: 100%;
-  transition: all 0.8s ease;
-}
-
-.trust-score__value {
-  position: absolute;
-  inset: 0;
+  width: 88px;
+  height: 88px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.trust-score__ring {
+  width: 100%;
+  height: 100%;
+  transform: rotate(0deg);
+}
+
+.trust-score__ring circle:first-child {
+  stroke: var(--surface-high);
+}
+
+.trust-score__value {
+  position: absolute;
+  display: flex;
+  align-items: baseline;
+  gap: 1px;
+}
+
 .trust-score__number {
-  font-size: 1.5rem;
-  font-weight: 800;
   font-family: var(--font-mono);
-  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--on-surface);
+  letter-spacing: -0.02em;
 }
 
 .trust-score__total {
+  font-family: var(--font-mono);
   font-size: 0.7rem;
-  color: var(--text-muted);
-  font-weight: 500;
-  margin-top: 6px;
+  color: var(--on-surface-variant);
+  font-variant-numeric: tabular-nums;
 }
 
 .summary-card__label {
   font-size: 0.7rem;
-  color: var(--text-muted);
-  font-weight: 600;
+  font-weight: 500;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  color: var(--on-surface-variant);
+  margin-top: 4px;
+  text-align: center;
 }
 
-/* ── Stat Cards ── */
+/* ── Stat Cards (Tonal Surface Shift) ── */
 .summary-card--stat {
-  flex: 1;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 14px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  transition: all 0.2s ease;
+  background: var(--surface-container);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  border: 1px solid var(--ghost-border);
+  transition: background var(--duration-fast) var(--ease-weighted);
 }
 
 .summary-card--stat:hover {
-  border-color: var(--border-hover);
-  background: var(--bg-card-hover);
+  background: var(--surface-high);
 }
 
 .stat-header {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-bottom: 10px;
 }
 
 .stat-dot {
   width: 8px;
   height: 8px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   flex-shrink: 0;
+  position: relative;
 }
 
-.stat-dot--verified { background: var(--verified); box-shadow: 0 0 6px var(--verified); }
-.stat-dot--unverified { background: var(--unverified); box-shadow: 0 0 6px var(--unverified); }
-.stat-dot--hallucinated { background: var(--hallucinated); box-shadow: 0 0 6px var(--hallucinated); }
+/* Data Pulse animation on status dots */
+.stat-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full);
+  animation: dataPulse 3s ease-out infinite;
+}
+
+.stat-dot--verified {
+  background: var(--verified);
+  box-shadow: 0 0 6px rgba(78, 222, 163, 0.4);
+}
+.stat-dot--verified::after { background: var(--verified); }
+
+.stat-dot--unverified {
+  background: var(--unverified);
+  box-shadow: 0 0 6px rgba(234, 179, 8, 0.4);
+}
+.stat-dot--unverified::after { background: var(--unverified); }
+
+.stat-dot--hallucinated {
+  background: var(--hallucinated);
+  box-shadow: 0 0 6px rgba(255, 180, 171, 0.4);
+}
+.stat-dot--hallucinated::after { background: var(--hallucinated); }
 
 .stat-label {
   font-size: 0.8rem;
-  color: var(--text-secondary);
   font-weight: 500;
-  flex: 1;
+  color: var(--on-surface-variant);
 }
 
 .stat-count {
-  font-size: 1.1rem;
-  font-weight: 700;
+  margin-left: auto;
   font-family: var(--font-mono);
-  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--on-surface);
 }
 
+/* Progress Bar */
 .stat-bar {
-  width: 100%;
   height: 4px;
-  background: var(--bg-elevated);
-  border-radius: 2px;
+  background: var(--surface-highest);
+  border-radius: var(--radius-full);
   overflow: hidden;
+  margin-bottom: 6px;
 }
 
 .stat-bar__fill {
   height: 100%;
-  border-radius: 2px;
-  transition: width 1s ease-out;
+  border-radius: var(--radius-full);
+  transition: width 0.8s var(--ease-weighted);
 }
 
-.stat-bar__fill--verified { background: var(--verified); box-shadow: 0 0 6px var(--verified); }
-.stat-bar__fill--unverified { background: var(--unverified); box-shadow: 0 0 6px var(--unverified); }
-.stat-bar__fill--hallucinated { background: var(--hallucinated); box-shadow: 0 0 6px var(--hallucinated); }
+.stat-bar__fill--verified {
+  background: var(--verified);
+  box-shadow: 0 0 8px rgba(78, 222, 163, 0.3);
+}
+
+.stat-bar__fill--unverified {
+  background: var(--unverified);
+  box-shadow: 0 0 8px rgba(234, 179, 8, 0.3);
+}
+
+.stat-bar__fill--hallucinated {
+  background: var(--hallucinated);
+  box-shadow: 0 0 8px rgba(255, 180, 171, 0.3);
+}
 
 .stat-pct {
-  font-size: 0.75rem;
-  color: var(--text-muted);
   font-family: var(--font-mono);
-  font-weight: 500;
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--on-surface-variant);
 }
 
+/* ── Responsive ── */
 @media (max-width: 768px) {
+  .summary-bar { padding: 16px; }
   .summary-bar__inner {
-    flex-wrap: wrap;
-    gap: 12px;
-    padding: 16px;
+    grid-template-columns: 1fr 1fr;
   }
-  .summary-card--stat {
-    min-width: calc(50% - 8px);
+  .summary-card--trust {
+    grid-column: 1 / -1;
+    justify-content: center;
   }
 }

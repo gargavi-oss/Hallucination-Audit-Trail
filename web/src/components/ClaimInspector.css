@@ -1,131 +1,132 @@
 /* ═══════════════════════════════════════════════════════
-   CLAIM INSPECTOR
+   CLAIM INSPECTOR — Forensic Detail Panel (Lumina Trace)
    ═══════════════════════════════════════════════════════ */
 
 .inspector {
   position: sticky;
-  top: 90px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  animation: slideInRight 0.35s ease-out;
+  top: 88px;
+  background: var(--surface-container);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--ghost-border);
+  overflow: hidden;
+  animation: slideInRight var(--duration-normal) var(--ease-weighted);
 }
 
+/* Header — Elevated surface */
 .inspector__header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: var(--text-muted);
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--border-color);
+  gap: 10px;
+  padding: 16px 24px;
+  background: var(--surface-high);
+  border-bottom: 1px solid var(--ghost-border);
+  color: var(--primary);
 }
 
 .inspector__title {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: var(--text-secondary);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: var(--on-surface-variant);
 }
 
-/* ── Status Badge ── */
+/* ── Status Badge (Semantic Chips) ── */
 .inspector__status {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 18px;
-  border-radius: var(--radius-md);
-  border: 1px solid;
-  animation: fadeIn 0.3s ease-out;
+  padding: 14px 24px;
+  margin: 20px 20px 0;
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-normal) var(--ease-weighted);
 }
 
 .inspector__status--verified {
-  background: var(--verified-bg);
-  border-color: var(--verified-border);
+  background: var(--verified-container);
+  color: var(--tertiary-fixed);
 }
+
 .inspector__status--unverified {
-  background: var(--unverified-bg);
-  border-color: var(--unverified-border);
+  background: rgba(234, 179, 8, 0.18);
+  color: var(--unverified);
 }
+
 .inspector__status--hallucinated {
-  background: var(--hallucinated-bg);
-  border-color: var(--hallucinated-border);
+  background: var(--hallucinated-container);
+  color: var(--on-error-container);
 }
 
 .inspector__status-icon {
+  font-size: 1.1rem;
+  font-weight: 700;
   width: 28px;
   height: 28px;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  font-weight: 700;
+  border-radius: var(--radius-full);
 }
 
 .inspector__status--verified .inspector__status-icon {
   background: var(--verified);
-  color: white;
+  color: var(--on-tertiary);
 }
 .inspector__status--unverified .inspector__status-icon {
   background: var(--unverified);
-  color: black;
+  color: #1a1a00;
 }
 .inspector__status--hallucinated .inspector__status-icon {
   background: var(--hallucinated);
-  color: white;
+  color: var(--error-container);
 }
 
 .inspector__status-label {
   font-size: 1rem;
   font-weight: 700;
-  letter-spacing: -0.01em;
 }
-
-.inspector__status--verified .inspector__status-label { color: var(--verified); }
-.inspector__status--unverified .inspector__status-label { color: var(--unverified); }
-.inspector__status--hallucinated .inspector__status-label { color: var(--hallucinated); }
 
 /* ── Sections ── */
 .inspector__section {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  padding: 16px 24px;
 }
 
 .inspector__section-title {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  color: var(--text-muted);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  color: var(--on-surface-variant);
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .inspector__source-count {
-  font-size: 0.65rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  padding: 1px 7px;
-  border-radius: 100px;
-  color: var(--text-secondary);
   font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-variant-numeric: tabular-nums;
+  background: var(--surface-highest);
+  color: var(--primary);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
 }
 
+/* Claim Text */
 .inspector__claim-text {
-  font-size: 0.88rem;
-  line-height: 1.6;
-  color: var(--text-primary);
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
+  font-size: 0.9rem;
   font-style: italic;
+  line-height: 1.7;
+  color: var(--on-surface);
+  padding: 14px 18px;
+  background: var(--surface-high);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--primary-container);
 }
 
-/* ── Confidence Bar ── */
+/* Confidence Bar */
 .inspector__confidence {
   display: flex;
   align-items: center;
@@ -134,106 +135,111 @@
 
 .inspector__confidence-bar {
   flex: 1;
-  height: 8px;
-  background: var(--bg-elevated);
-  border-radius: 4px;
+  height: 6px;
+  background: var(--surface-highest);
+  border-radius: var(--radius-full);
   overflow: hidden;
 }
 
 .inspector__confidence-fill {
   height: 100%;
-  border-radius: 4px;
-  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: var(--radius-full);
+  transition: width 0.8s var(--ease-weighted);
 }
 
 .inspector__confidence-fill--verified {
-  background: linear-gradient(90deg, var(--verified), #4ade80);
-  box-shadow: 0 0 8px var(--verified);
+  background: var(--verified);
+  box-shadow: var(--shadow-glow-tertiary);
 }
 .inspector__confidence-fill--unverified {
-  background: linear-gradient(90deg, var(--unverified), #fbbf24);
-  box-shadow: 0 0 8px var(--unverified);
+  background: var(--unverified);
+  box-shadow: 0 0 10px rgba(234, 179, 8, 0.2);
 }
 .inspector__confidence-fill--hallucinated {
-  background: linear-gradient(90deg, var(--hallucinated), #f87171);
-  box-shadow: 0 0 8px var(--hallucinated);
+  background: var(--hallucinated);
+  box-shadow: var(--shadow-glow-error);
 }
 
 .inspector__confidence-value {
-  font-size: 0.9rem;
-  font-weight: 700;
   font-family: var(--font-mono);
-  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--on-surface);
   min-width: 40px;
   text-align: right;
 }
 
-/* ── Explanation ── */
+/* Analysis Text */
 .inspector__explanation {
-  font-size: 0.85rem;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  color: var(--on-surface-variant);
+  padding: 14px 18px;
+  background: var(--surface-high);
+  border-radius: var(--radius-md);
 }
 
-/* ── Sources ── */
+/* Source Links */
 .inspector__sources {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .inspector__source {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  color: var(--text-muted);
-  transition: all 0.2s ease;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--surface-high);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--ghost-border);
+  transition: all var(--duration-fast) var(--ease-weighted);
+  color: var(--primary);
 }
 
 .inspector__source:hover {
-  border-color: var(--accent);
-  background: var(--bg-card-hover);
+  background: var(--surface-highest);
+  border-color: var(--ghost-border-active);
 }
 
 .inspector__source-link {
-  font-size: 0.82rem;
-  color: var(--accent-light);
+  color: var(--primary);
   text-decoration: none;
-  transition: color 0.2s;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: color var(--duration-fast);
 }
 
 .inspector__source-link:hover {
-  color: white;
+  color: var(--primary-fixed);
   text-decoration: underline;
 }
 
 .inspector__no-sources {
-  font-size: 0.82rem;
-  color: var(--text-muted);
+  font-size: 0.85rem;
+  color: var(--on-surface-variant);
   font-style: italic;
-  padding: 8px 12px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  background: var(--surface-high);
+  border-radius: var(--radius-md);
+  text-align: center;
 }
 
-/* ── Footer ── */
+/* Footer */
 .inspector__footer {
-  padding-top: 12px;
-  border-top: 1px solid var(--border-color);
+  padding: 14px 24px;
+  background: var(--surface-high);
+  border-top: 1px solid var(--ghost-border);
+  text-align: center;
 }
 
 .inspector__claim-id {
-  font-size: 0.72rem;
-  color: var(--text-muted);
   font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--on-surface-variant);
+  letter-spacing: 0.03em;
 }

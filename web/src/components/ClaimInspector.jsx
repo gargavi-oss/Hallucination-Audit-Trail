@@ -1,15 +1,10 @@
+import { STATUS_TOKENS } from '../designTokens.js';
 import './ClaimInspector.css';
-
-const statusConfig = {
-  verified: { label: 'Verified', icon: '✓', color: 'var(--verified)' },
-  unverified: { label: 'Unverified', icon: '?', color: 'var(--unverified)' },
-  hallucinated: { label: 'Hallucinated', icon: '✕', color: 'var(--hallucinated)' }
-};
 
 export default function ClaimInspector({ claim }) {
   if (!claim) return null;
 
-  const config = statusConfig[claim.status];
+  const config = STATUS_TOKENS[claim.status];
 
   return (
     <div className="inspector" key={claim.id}>
@@ -21,13 +16,13 @@ export default function ClaimInspector({ claim }) {
         <h2 className="inspector__title">Claim Inspector</h2>
       </div>
 
-      {/* Status badge */}
+      {/* Status Badge — Semantic Chip */}
       <div className={`inspector__status inspector__status--${claim.status}`}>
         <span className="inspector__status-icon">{config.icon}</span>
         <span className="inspector__status-label">{config.label}</span>
       </div>
 
-      {/* Claim text */}
+      {/* Claim Text */}
       <div className="inspector__section">
         <h3 className="inspector__section-title">Claim</h3>
         <p className="inspector__claim-text">"{claim.text}"</p>
@@ -41,13 +36,13 @@ export default function ClaimInspector({ claim }) {
             <div
               className={`inspector__confidence-fill inspector__confidence-fill--${claim.status}`}
               style={{ width: `${claim.confidence}%` }}
-            ></div>
+            />
           </div>
           <span className="inspector__confidence-value">{claim.confidence}%</span>
         </div>
       </div>
 
-      {/* Explanation */}
+      {/* Analysis */}
       <div className="inspector__section">
         <h3 className="inspector__section-title">Analysis</h3>
         <p className="inspector__explanation">{claim.explanation}</p>
@@ -84,7 +79,7 @@ export default function ClaimInspector({ claim }) {
         )}
       </div>
 
-      {/* Claim ID */}
+      {/* Footer */}
       <div className="inspector__footer">
         <span className="inspector__claim-id">Claim #{claim.id} of 10</span>
       </div>
